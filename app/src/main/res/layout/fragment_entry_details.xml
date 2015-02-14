@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioGroup
+            android:id="@+id/entryDetailsRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <RadioButton
+                android:id="@+id/entryDetailsMonetary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:checked="true"
+                android:text="Money" />
+
+            <RadioButton
+                android:id="@+id/entryDetailsObject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Object" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/entryDetailsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/entryDetailsRadioGroup"
+            android:layout_margin="20dp"
+            android:hint="Title"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+
+        <LinearLayout
+            android:id="@+id/lPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/entryDetailsTitle"
+            android:gravity="center"
+            android:padding="20dp" >
+
+            <Spinner
+                android:id="@+id/entryDetailsWhoPaid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:entries="@array/who_paid_array"
+                android:gravity="center"
+                android:hint="Who Lent Who?" />
+
+            <TextView
+                android:id="@+id/entryDetailsCurrency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="$" />
+
+            <EditText
+                android:id="@+id/entryDetailsPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:hint="Amount"
+                android:inputType="number|numberDecimal"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lCurrentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lPrice"
+            android:gravity="center"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/entryDetailsCurrentDateTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Current Date:" />
+
+            <Button
+                android:id="@+id/entryDetailsCurrentDate"
+                style="?android:attr/spinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Date" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lCurrentDate"
+            android:gravity="center"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/entryDetailsDueDateTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Due Date:" />
+
+            <Button
+                android:id="@+id/entryDetailsDueDate"
+                style="?android:attr/spinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Date" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/lDueDate"
+            android:gravity="bottom" >
+
+            <Button
+                android:id="@+id/entryOK"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="OK" />
+
+            <Button
+                android:id="@+id/entryCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

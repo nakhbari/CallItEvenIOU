@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.nakhbari.calliteven"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/card_background" >
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            android:text="FirstName LastName"
+            android:textColor="@color/general_text_color"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/divLine1"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/nameText"
+            android:background="@drawable/divider_line" />
+
+        <TextView
+            android:id="@+id/tvLatestItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divLine1"
+            android:layout_margin="5dp"
+            android:gravity="left|center"
+            android:maxLines="6"
+            android:text="Latest Items:"
+            android:textColor="@color/light_text_color"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/divLineDollar"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/tvLatestItems"
+            android:background="@drawable/divider_line" />
+
+        <ImageView
+            android:id="@+id/nameItemCircleDollar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/divLineDollar"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/blue_circle"
+            android:clickable="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_forward" />
+
+        <TextView
+            android:id="@+id/tvOwingTextDollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/nameItemCircleDollar"
+            android:layout_below="@id/divLineDollar"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nameItemCircleDollar"
+            android:gravity="center|left"
+            android:lines="1"
+            android:text="Owes"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvBalanceTextDollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/nameItemCircleDollar"
+            android:layout_below="@id/divLineDollar"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tvOwingTextDollar"
+            android:gravity="right|center"
+            android:singleLine="true"
+            android:text="Balance"
+            android:textColor="@color/general_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/divLineEuro"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/nameItemCircleDollar"
+            android:background="@drawable/divider_line" />
+
+        <ImageView
+            android:id="@+id/nameItemCircleEuro"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/divLineEuro"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/blue_circle"
+            android:clickable="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_forward" />
+
+        <TextView
+            android:id="@+id/tvOwingTextEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/nameItemCircleEuro"
+            android:layout_below="@id/divLineEuro"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nameItemCircleEuro"
+            android:gravity="center|left"
+            android:lines="1"
+            android:text="Owes"
+            android:textColor="@color/actionbar_background"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvBalanceTextEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/nameItemCircleEuro"
+            android:layout_below="@id/divLineEuro"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tvOwingTextEuro"
+            android:gravity="right|center"
+            android:singleLine="true"
+            android:text="Balance"
+            android:textColor="@color/general_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/divLineYen"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/nameItemCircleEuro"
+            android:background="@drawable/divider_line" />
+
+        <ImageView
+            android:id="@+id/nameItemCircleYen"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/divLineYen"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/blue_circle"
+            android:clickable="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_forward" />
+
+        <TextView
+            android:id="@+id/tvOwingTextYen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/nameItemCircleYen"
+            android:layout_below="@id/divLineYen"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nameItemCircleYen"
+            android:gravity="center|left"
+            android:lines="1"
+            android:text="Owes"
+            android:textColor="@color/actionbar_background"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvBalanceTextYen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/nameItemCircleYen"
+            android:layout_below="@id/divLineYen"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tvOwingTextYen"
+            android:gravity="right|center"
+            android:singleLine="true"
+            android:text="Balance"
+            android:textColor="@color/general_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/divLinePound"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/nameItemCircleYen"
+            android:background="@drawable/divider_line" />
+
+        <ImageView
+            android:id="@+id/nameItemCirclePound"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/divLinePound"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/blue_circle"
+            android:clickable="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_forward" />
+
+        <TextView
+            android:id="@+id/tvOwingTextPound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/nameItemCirclePound"
+            android:layout_below="@id/divLinePound"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nameItemCirclePound"
+            android:gravity="center|left"
+            android:lines="1"
+            android:text="Owes"
+            android:textColor="@color/actionbar_background"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvBalanceTextPound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/nameItemCirclePound"
+            android:layout_below="@id/divLinePound"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tvOwingTextPound"
+            android:gravity="right|center"
+            android:singleLine="true"
+            android:text="Balance"
+            android:textColor="@color/general_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/divLineFranc"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@id/nameItemCirclePound"
+            android:background="@drawable/divider_line" />
+
+        <ImageView
+            android:id="@+id/nameItemCircleFranc"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/divLineFranc"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/blue_circle"
+            android:clickable="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_forward" />
+
+        <TextView
+            android:id="@+id/tvOwingTextFranc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/nameItemCircleFranc"
+            android:layout_below="@id/divLineFranc"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nameItemCircleFranc"
+            android:gravity="center|left"
+            android:lines="1"
+            android:text="Owes"
+            android:textColor="@color/actionbar_background"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvBalanceTextFranc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/nameItemCircleFranc"
+            android:layout_below="@id/divLineFranc"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/tvOwingTextFranc"
+            android:gravity="right|center"
+            android:singleLine="true"
+            android:text="Balance"
+            android:textColor="@color/general_text_color"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</FrameLayout>
