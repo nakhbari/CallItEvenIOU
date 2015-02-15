@@ -1,25 +1,47 @@
 package com.nakhbari.calliteven;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class NameListAdapter extends ArrayAdapter<NameListItem> {
 
     // List of names
     private ArrayList<NameListItem> objects;
     private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
+    private String currency = "";
+
+
+    /*
+     * here we must override the constructor for ArrayAdapter the only variable
+     * we care about now is ArrayList<Item> objects, because it is the list of
+     * objects we want to display.
+     */
+    public NameListAdapter(Context context, int textViewResourceId,
+                           ArrayList<NameListItem> objects) {
+        super(context, textViewResourceId, objects);
+        this.objects = objects;
+    }
+
+    public static String FormatDoubleToString(double d) {
+        if (d == (int) d)
+            return String.format("%d", (int) d);
+        else
+            return String.format("%.2f", d);
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
     public void setNewSelection(int position, boolean value) {
         mSelection.put(position, value);
@@ -51,27 +73,6 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
     }
 
     /*
-     * here we must override the constructor for ArrayAdapter the only variable
-     * we care about now is ArrayList<Item> objects, because it is the list of
-     * objects we want to display.
-     */
-    public NameListAdapter(Context context, int textViewResourceId,
-                           ArrayList<NameListItem> objects) {
-        super(context, textViewResourceId, objects);
-        this.objects = objects;
-    }
-
-    static class ViewHolder {
-        TextView name;
-        ArrayList<TextView> owesWho = new ArrayList<TextView>();
-        ArrayList<TextView> balance = new ArrayList<TextView>();
-        TextView latestEntries;
-        ArrayList<TextView> divLine = new ArrayList<TextView>();
-        ArrayList<ImageView> circleImage = new ArrayList<ImageView>();
-        int lastPosition;
-    }
-
-    /*
      * we are overriding the getView method here - this is what defines how each
      * list item will look.
      */
@@ -92,43 +93,14 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
             holder.name = (TextView) view.findViewById(R.id.nameText);
             holder.latestEntries = (TextView) view
                     .findViewById(R.id.tvLatestItems);
-            holder.divLine
-                    .add((TextView) view.findViewById(R.id.divLineDollar));
-            holder.owesWho.add((TextView) view
-                    .findViewById(R.id.tvOwingTextDollar));
-            holder.balance.add((TextView) view
-                    .findViewById(R.id.tvBalanceTextDollar));
-            holder.circleImage.add((ImageView) view
-                    .findViewById(R.id.nameItemCircleDollar));
-
-            holder.divLine.add((TextView) view.findViewById(R.id.divLineEuro));
-            holder.owesWho.add((TextView) view
-                    .findViewById(R.id.tvOwingTextEuro));
-            holder.balance.add((TextView) view
-                    .findViewById(R.id.tvBalanceTextEuro));
-            holder.circleImage.add((ImageView) view
-                    .findViewById(R.id.nameItemCircleEuro));
-            holder.divLine.add((TextView) view.findViewById(R.id.divLineYen));
-            holder.owesWho.add((TextView) view
-                    .findViewById(R.id.tvOwingTextYen));
-            holder.balance.add((TextView) view
-                    .findViewById(R.id.tvBalanceTextYen));
-            holder.circleImage.add((ImageView) view
-                    .findViewById(R.id.nameItemCircleYen));
-            holder.divLine.add((TextView) view.findViewById(R.id.divLinePound));
-            holder.owesWho.add((TextView) view
-                    .findViewById(R.id.tvOwingTextPound));
-            holder.balance.add((TextView) view
-                    .findViewById(R.id.tvBalanceTextPound));
-            holder.circleImage.add((ImageView) view
-                    .findViewById(R.id.nameItemCirclePound));
-            holder.divLine.add((TextView) view.findViewById(R.id.divLineFranc));
-            holder.owesWho.add((TextView) view
-                    .findViewById(R.id.tvOwingTextFranc));
-            holder.balance.add((TextView) view
-                    .findViewById(R.id.tvBalanceTextFranc));
-            holder.circleImage.add((ImageView) view
-                    .findViewById(R.id.nameItemCircleFranc));
+            holder.divLine2
+                    = (TextView) view.findViewById(R.id.divLine2);
+            holder.owesWho = (TextView) view
+                    .findViewById(R.id.tvOwing);
+            holder.balance = (TextView) view
+                    .findViewById(R.id.tvBalance);
+            holder.circleImage = (ImageView) view
+                    .findViewById(R.id.nameItemCircle);
 
             // set fonts
             Typeface tf = Typeface.createFromAsset(getContext().getAssets(),
@@ -139,10 +111,8 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
             holder.name.setTypeface(tf);
             holder.latestEntries.setTypeface(tfItalic);
 
-            for (int i = 0; i < holder.balance.size(); i++) {
-                holder.balance.get(i).setTypeface(tf);
-                holder.owesWho.get(i).setTypeface(tf);
-            }
+            holder.balance.setTypeface(tf);
+            holder.owesWho.setTypeface(tf);
 
             view.setTag(holder);
         } else {
@@ -166,14 +136,7 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
 
         if (mSelection.get(position) != null) {
             view.setBackgroundResource(R.color.list_item_long_press); // this is
-            // a
-            // selected
-            // position
-            // so
-            // make
-            // it
-            // dark
-            // bluew
+            // a selected position so make it dark blue
         } else {
             view.setBackgroundResource(android.R.color.transparent);
         }
@@ -187,101 +150,89 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
                 holder.name.setText(i.getName());
             }
 
-            double balance[] = {i.getBalanceDollar(), i.getBalanceEuro(),
-                    i.getBalanceYen(), i.getBalancePound(), i.getBalanceFranc()};
-            String currency[] = getContext().getResources().getStringArray(
-                    R.array.currency_array);
+            double balance = i.getBalance();
+
             // Manage what happens with the balance
             if (holder.balance != null) {
-                for (int j = 0; j < 5; j++) {
 
-                    if (balance[j] < 0) {
+                if (balance < 0) {
 
-                        holder.balance.get(j).setVisibility(View.VISIBLE);
-                        holder.owesWho.get(j).setText("Is Owed");
-                        holder.balance.get(j).setText(
-                                currency[j]
-                                        + FormatDoubleToString(Math
-                                        .abs(balance[j])));
+                    holder.balance.setVisibility(View.VISIBLE);
+                    holder.owesWho.setText("Is Owed");
+                    holder.balance.setText(
+                            currency
+                                    + FormatDoubleToString(Math
+                                    .abs(balance)));
 
-                    } else if (balance[j] > 0) {
+                } else if (balance > 0) {
 
-                        holder.balance.get(j).setVisibility(View.VISIBLE);
-                        holder.owesWho.get(j).setText("Owes You");
-                        holder.balance.get(j).setText(
-                                currency[j]
-                                        + FormatDoubleToString(Math
-                                        .abs(balance[j])));
+                    holder.balance.setVisibility(View.VISIBLE);
+                    holder.owesWho.setText("Owes You");
+                    holder.balance.setText(
+                            currency
+                                    + FormatDoubleToString(Math
+                                    .abs(balance)));
 
+                } else {
+                    // No Money Owed
+                    holder.balance.setVisibility(View.GONE);
+
+                    if (i.getListOfLatestEntries().isEmpty()) {
+                        // Nothing is owed
+
+                        holder.owesWho.setText(
+                                R.string.no_balance);
                     } else {
-                        // No Money Owed
-                        holder.balance.get(j).setVisibility(View.GONE);
-
-                        if (j == 0) {
-                            if (i.getListOfLatestEntries().isEmpty()) {
-                                // Nothing is owed
-
-                                holder.owesWho.get(j).setText(
-                                        R.string.no_balance);
-                            } else {
-                                holder.owesWho.get(j).setText("Object Lent");
-                            }
-                        } else {
-
-                            holder.divLine.get(j).setVisibility(View.GONE);
-                            holder.circleImage.get(j).setVisibility(View.GONE);
-                            holder.owesWho.get(j).setVisibility(View.GONE);
-                        }
-
+                        holder.owesWho.setText("Object Lent");
                     }
                 }
             }
+
 
             // Manage Latest Items
             if (i.getListOfLatestEntries().isEmpty()) {
 
                 holder.latestEntries.setVisibility(View.GONE);
-                holder.divLine.get(0).setVisibility(View.GONE);
-                holder.owesWho.get(0).setTextColor(
+                holder.divLine2.setVisibility(View.GONE);
+                holder.owesWho.setTextColor(
                         getContext().getResources().getColor(R.color.green));
-                holder.circleImage.get(0).setImageResource(R.drawable.ic_check);
-                holder.circleImage.get(0).setBackgroundResource(
+                holder.circleImage.setImageResource(R.drawable.ic_check);
+                holder.circleImage.setBackgroundResource(
                         R.drawable.green_circle);
             } else {
 
                 holder.latestEntries.setText(i.getListOfLatestEntries()
                         .getList());
                 holder.latestEntries.setVisibility(View.VISIBLE);
-                holder.divLine.get(0).setVisibility(View.VISIBLE);
+                holder.divLine2.setVisibility(View.VISIBLE);
 
-                if (balance[1] + balance[2] + balance[3] + balance[4] == 0) {
+                if (balance == 0) {
 
-                    holder.owesWho.get(0).setTextColor(
+                    holder.owesWho.setTextColor(
                             getContext().getResources().getColor(
                                     R.color.actionbar_background));
-                    holder.circleImage.get(0).setImageResource(
+                    holder.circleImage.setImageResource(
                             R.drawable.ic_arrow_forward);
-                    holder.circleImage.get(0).setBackgroundResource(
+                    holder.circleImage.setBackgroundResource(
                             R.drawable.blue_circle);
-                } else {
-
-                    holder.divLine.get(0).setVisibility(View.GONE);
-                    holder.circleImage.get(0).setVisibility(View.GONE);
-                    holder.owesWho.get(0).setVisibility(View.GONE);
-                }
+                } 
             }
 
         }
+
 
         // Return the view to the activity
         return view;
 
     }
 
-    public static String FormatDoubleToString(double d) {
-        if (d == (int) d)
-            return String.format("%d", (int) d);
-        else
-            return String.format("%.2f", d);
+    static class ViewHolder {
+        TextView name;
+        TextView owesWho;
+        TextView balance;
+        TextView latestEntries;
+        TextView divLine2;
+        ImageView circleImage;
+        int lastPosition;
     }
 }

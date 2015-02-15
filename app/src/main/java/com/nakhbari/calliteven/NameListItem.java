@@ -1,24 +1,28 @@
 package com.nakhbari.calliteven;
 
+import com.google.gson.annotations.Since;
+import com.google.gson.annotations.Until;
+
 import java.util.ArrayList;
 
 public class NameListItem {
     private String m_Name;
-    private double m_BalanceDollar;
+    @Since(4)
+    private double m_Balance;
+    @Until(4)
     private double m_BalanceEuro;
+    @Until(4)
     private double m_BalanceYen;
+    @Until(4)
     private double m_BalancePound;
+    @Until(4)
     private double m_BalanceFranc;
     private ArrayList<EntryListItem> m_EntryArray;
     private ListOfLatestEntryItems m_listOfLatestItems;
 
     public NameListItem() {
         m_Name = "default";
-        m_BalanceDollar = 0;
-        m_BalanceEuro = 0;
-        m_BalanceYen = 0;
-        m_BalancePound = 0;
-        m_BalanceFranc = 0;
+        m_Balance = 0;
         m_EntryArray = new ArrayList<EntryListItem>();
         m_listOfLatestItems = new ListOfLatestEntryItems();
     }
@@ -31,44 +35,12 @@ public class NameListItem {
         this.m_Name = name;
     }
 
-    public double getBalanceDollar() {
-        return m_BalanceDollar;
+    public double getBalance() {
+        return m_Balance;
     }
 
-    public void setBalanceDollar(double balance) {
-        this.m_BalanceDollar = balance;
-    }
-
-    public double getBalanceEuro() {
-        return m_BalanceEuro;
-    }
-
-    public void setBalanceEuro(double balance) {
-        this.m_BalanceEuro = balance;
-    }
-
-    public double getBalanceYen() {
-        return m_BalanceYen;
-    }
-
-    public void setBalanceYen(double balance) {
-        this.m_BalanceYen = balance;
-    }
-
-    public double getBalancePound() {
-        return m_BalancePound;
-    }
-
-    public void setBalancePound(double balance) {
-        this.m_BalancePound = balance;
-    }
-
-    public double getBalanceFranc() {
-        return m_BalanceFranc;
-    }
-
-    public void setBalanceFranc(double balance) {
-        this.m_BalanceFranc = balance;
+    public void setBalance(double balance) {
+        this.m_Balance = balance;
     }
 
     public ArrayList<EntryListItem> getEntryArray() {
@@ -79,11 +51,11 @@ public class NameListItem {
         this.m_EntryArray = array;
     }
 
-    public void setListOfLatestEntries(ListOfLatestEntryItems list) {
-        m_listOfLatestItems = list;
-    }
-
     public ListOfLatestEntryItems getListOfLatestEntries() {
         return m_listOfLatestItems;
+    }
+
+    public void setListOfLatestEntries(ListOfLatestEntryItems list) {
+        m_listOfLatestItems = list;
     }
 }

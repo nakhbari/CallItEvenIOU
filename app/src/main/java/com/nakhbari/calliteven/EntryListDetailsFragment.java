@@ -1,8 +1,5 @@
 package com.nakhbari.calliteven;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Color;
@@ -27,27 +24,24 @@ import android.widget.Toast;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.fourmob.datetimepicker.date.DatePickerDialog.OnDateSetListener;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class EntryListDetailsFragment extends Fragment implements
         OnClickListener, OnDateSetListener {
-
-    static class ViewHolder {
-        EditText etTitle;
-        EditText etPrice;
-        Button bCurrentDateButton;
-        Button bDueDateButton;
-        Button bYes;
-        Button bCancel;
-        RadioButton rbIsMoneyItem;
-        RadioButton rbIsObjectItem;
-        Spinner spWhoPaid;
-        TextView tvCurrency;
-    }
 
     EntryListDetailsCommunicator activityCommunicator;
     private int m_namePosition = 0;
     private int m_entryPosition = 0;
     private EntryListItem m_entryItem;
     private ViewHolder holder = new ViewHolder();
+
+    public static String FormatDoubleToString(double d) {
+        if (d == (int) d)
+            return String.format("%d", (int) d);
+        else
+            return String.format("%.2f", d);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +57,9 @@ public class EntryListDetailsFragment extends Fragment implements
         super.onViewCreated(view, savedInstanceState);
     }
 
-    /** ----------------------- Action Bar ------------------------- */
+    /**
+     * ----------------------- Action Bar -------------------------
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -103,14 +99,16 @@ public class EntryListDetailsFragment extends Fragment implements
         super.onPause();
     }
 
-    /** ----------------------- Functions -------------------------------------- */
+    /**
+     * ----------------------- Functions --------------------------------------
+     */
 
     private void initializeDetails(View view) {
 
         holder.etTitle = (EditText) view.findViewById(R.id.entryDetailsTitle);
         holder.etPrice = (EditText) view.findViewById(R.id.entryDetailsPrice);
         holder.etPrice
-                .setFilters(new InputFilter[] { new InputFilterPriceNumber() });
+                .setFilters(new InputFilter[]{new InputFilterPriceNumber()});
         holder.spWhoPaid = (Spinner) view
                 .findViewById(R.id.entryDetailsWhoPaid);
         holder.tvCurrency = (TextView) view
@@ -134,10 +132,10 @@ public class EntryListDetailsFragment extends Fragment implements
                 && holder.rbIsMoneyItem != null
                 && holder.bDueDateButton != null && holder.spWhoPaid != null) {
 
+            String currency = activityCommunicator.GetCurrency();
+            holder.tvCurrency.setText(currency);
+
             if (m_entryItem.getTitle() != "default") {
-
-                String currency = activityCommunicator.GetCurrency();
-
                 holder.etTitle.setText(m_entryItem.getTitle());
                 holder.etTitle.setSelection(m_entryItem.getTitle().length());
                 holder.bCurrentDateButton
@@ -260,7 +258,7 @@ public class EntryListDetailsFragment extends Fragment implements
                                     .toString()));
 
                         }
-                    }else{
+                    } else {
 
                         m_entryItem.setPrice(0.0);
                     }
@@ -314,14 +312,9 @@ public class EntryListDetailsFragment extends Fragment implements
         return result;
     }
 
-    public static String FormatDoubleToString(double d) {
-        if (d == (int) d)
-            return String.format("%d", (int) d);
-        else
-            return String.format("%.2f", d);
-    }
-
-    /** ----------------------- Activity Callbacks --------------------------- */
+    /**
+     * ----------------------- Activity Callbacks ---------------------------
+     */
 
     public void SetEntryListItem(EntryListItem item, int namePosition,
                                  int entryPosition) {
@@ -330,7 +323,9 @@ public class EntryListDetailsFragment extends Fragment implements
         this.m_entryPosition = entryPosition;
     }
 
-    /** ----------------------- Activity Interface --------------------------- */
+    /**
+     * ----------------------- Activity Interface ---------------------------
+     */
 
     @Override
     public void onAttach(Activity activity) {
@@ -347,8 +342,23 @@ public class EntryListDetailsFragment extends Fragment implements
     public interface EntryListDetailsCommunicator {
         public void SendEntryItemData(EntryListItem item, int namePosition,
                                       int entryPosition);
+
         public String GetCurrency();
+
         public void NavigateBack();
+    }
+
+    static class ViewHolder {
+        EditText etTitle;
+        EditText etPrice;
+        Button bCurrentDateButton;
+        Button bDueDateButton;
+        Button bYes;
+        Button bCancel;
+        RadioButton rbIsMoneyItem;
+        RadioButton rbIsObjectItem;
+        Spinner spWhoPaid;
+        TextView tvCurrency;
     }
 
 }

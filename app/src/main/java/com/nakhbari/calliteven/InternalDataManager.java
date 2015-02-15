@@ -1,22 +1,26 @@
 package com.nakhbari.calliteven;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-
-import android.content.Context;
 
 public class InternalDataManager {
 
     private static String FILE_NAME = "InternalData.JSON";
     private static int EOF = -1;
+    private static int version = 0;
+
+    public InternalDataManager(int version) {
+        this.version = version;
+    }
 
     public void SaveData(ArrayList<NameListItem> array, Context context) {
         FileOutputStream fos = null;
@@ -50,7 +54,7 @@ public class InternalDataManager {
     }
 
     private String ConvertArrayToGsonString(ArrayList<NameListItem> array) {
-        Gson g = new Gson();
+        Gson g = new GsonBuilder().setVersion(version).create();
         String gs = g.toJson(array);
         return gs;
     }
@@ -96,7 +100,7 @@ public class InternalDataManager {
     }
 
     private ArrayList<NameListItem> ConvertStringToArrayList(String collected) {
-        Gson g = new Gson();
+        Gson g = new GsonBuilder().setVersion(version).create();
         ArrayList<NameListItem> data = g.fromJson(collected,
                 new TypeToken<ArrayList<NameListItem>>() {
                 }.getType());

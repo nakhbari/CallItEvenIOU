@@ -1,21 +1,18 @@
 package com.nakhbari.calliteven;
 
-import com.google.gson.annotations.Until;
-
 import java.util.Calendar;
 
-public class EntryListItem {
+public class EntryListItemOLD {
 
     private String m_Title;
     private Double m_Price;
     private Calendar m_CurrentDate;
     private Calendar m_DueDate;
     private boolean m_IsItemMonetary;
-    @Until(4)
     private int m_CurrencyArrayPos;
     private boolean m_DidYouLend;
 
-    public EntryListItem() {
+    public EntryListItemOLD() {
         m_Title = "default";
         m_Price = 0.0;
         m_CurrentDate = Calendar.getInstance();
@@ -63,6 +60,14 @@ public class EntryListItem {
 
     public void setItemMonetary(boolean isMonetary) {
         m_IsItemMonetary = isMonetary;
+    }
+
+    public int getCurrencyArrayPos() {
+        return m_CurrencyArrayPos;
+    }
+
+    public void setCurrencyArrayPos(int curPos) {
+        m_CurrencyArrayPos = curPos;
     }
 
     public boolean didYouLend() {

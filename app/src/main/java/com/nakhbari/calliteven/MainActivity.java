@@ -50,14 +50,12 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
                     .commit();
         }
 
-//        getVersionCode();
-
-
         // Turn off the up button initially
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-
+        // Checks for if this version is new
+        CheckIfNewUpdate();
     }
 
     @Override
@@ -98,6 +96,7 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
         //Save Currency
         SharedPreferences settings = getSharedPreferences(getString(R.string.sharedPref), 0);
         settings.edit().putString(getString(R.string.keyCurrency), currency).apply();
+        settings.edit().putInt(getString(R.string.keyVersion), getVersionCode());
         SaveDataStructure();
     }
 
@@ -348,30 +347,25 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
      */
     private void CalculateBalance(int namePosition) {
         // Calculate how much the person is owed, from the sum of entries
-        double balanceSum[] = {0.0, 0.0, 0.0, 0.0, 0.0};
+        double balanceSum = 0.0;
 
         for (int i = 0; i < m_nameEntry.get(namePosition).getEntryArray()
                 .size(); i++) {
 
-            balanceSum[m_nameEntry.get(namePosition).getEntryArray().get(i)
-                    .getCurrencyArrayPos()] += m_nameEntry.get(namePosition)
+            balanceSum += m_nameEntry.get(namePosition)
                     .getEntryArray().get(i).getPrice();
         }
 
-        m_nameEntry.get(namePosition).setBalanceDollar(balanceSum[0]);
-        m_nameEntry.get(namePosition).setBalanceEuro(balanceSum[1]);
-        m_nameEntry.get(namePosition).setBalanceYen(balanceSum[2]);
-        m_nameEntry.get(namePosition).setBalancePound(balanceSum[3]);
-        m_nameEntry.get(namePosition).setBalanceFranc(balanceSum[4]);
+        m_nameEntry.get(namePosition).setBalance(balanceSum);
     }
 
     private void SaveDataStructure() {
-        InternalDataManager dataManager = new InternalDataManager();
+        InternalDataManager dataManager = new InternalDataManager(getVersionCode());
         dataManager.SaveData(m_nameEntry, this);
     }
 
     private void LoadDataStructure() {
-        InternalDataManager dataManager = new InternalDataManager();
+        InternalDataManager dataManager = new InternalDataManager(getVersionCode());
         m_nameEntry.clear();
         m_nameEntry.addAll(dataManager.LoadData(this));
         UpdateNameListFragment();
@@ -451,5 +445,17 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
     public void SetCurrency(String currency) {
         this.currency = currency;
         Toast.makeText(this, "Currency: " + currency, Toast.LENGTH_SHORT).show();
+    }
+
+    public void CheckIfNewUpdate() {
+        SharedPreferences settings = getSharedPreferences(getString(R.string.sharedPref), 0);
+        if (getVersionCode() != settings.getInt(getString(R.string.keyVersion), 0)) {
+            // This is a new version update
+
+            //Recalculate balances
+            for (int i = 0; i < m_nameEntry.size(); i++) {
+                CalculateBalance(i);
+            }
+        }
     }
 }

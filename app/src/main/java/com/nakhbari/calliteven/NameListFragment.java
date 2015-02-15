@@ -1,29 +1,27 @@
 package com.nakhbari.calliteven;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class NameListFragment extends ListFragment {
 
-    private ArrayList<NameListItem> m_nameEntry = new ArrayList<NameListItem>();
     NameListCommunicator activityCommunicator;
-    private NameListAdapter m_Adapter;
     ImageButton bAddNew;
+    private ArrayList<NameListItem> m_nameEntry = new ArrayList<NameListItem>();
+    private NameListAdapter m_Adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +64,7 @@ public class NameListFragment extends ListFragment {
         // individual rows.
         m_Adapter = new NameListAdapter(getActivity(), R.layout.row_name_list,
                 m_nameEntry);
+        m_Adapter.setCurrency(activityCommunicator.GetCurrency());
         setListAdapter(m_Adapter);
 
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -195,6 +194,8 @@ public class NameListFragment extends ListFragment {
         public void RemoveCheckedNameListItems(ListView list);
 
         public void EditNameEntry(int position);
+
+        public String GetCurrency();
     }
 
     /** --------------- Contextual Action Menu Interface ------------------ */

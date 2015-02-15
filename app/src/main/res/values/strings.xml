@@ -12,6 +12,7 @@
     <string name="pound">&#163;</string>
     <string name="sharedPref">sharedpref</string>
     <string name="keyCurrency">KEY_CURRENCY</string>
+    <string name="keyVersion">KEY_VERSION</string>
     <string name="defaultCurrency">&#36;</string>
 
     <string-array name="who_paid_array">
