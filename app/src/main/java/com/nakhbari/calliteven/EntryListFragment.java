@@ -1,7 +1,5 @@
 package com.nakhbari.calliteven;
 
-import java.util.ArrayList;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +15,10 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.melnykov.fab.FloatingActionButton;
+
+import java.util.ArrayList;
+
 public class EntryListFragment extends ListFragment {
     EntryListCommunicator activityCommunicator;
     private ArrayList<EntryListItem> m_entries = new ArrayList<EntryListItem>();
@@ -24,6 +26,8 @@ public class EntryListFragment extends ListFragment {
     private String m_name = "", m_balance = "", m_Owing = "";
     private EntryListAdapter m_Adapter;
     ImageView bAddNew;
+    FloatingActionButton addEntryButton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,18 +41,17 @@ public class EntryListFragment extends ListFragment {
         // TODO Auto-generated method stub
         super.onViewCreated(view, savedInstanceState);
 
-        bAddNew = (ImageView) view
-                .findViewById(R.id.entryListFloatingButton);
-        bAddNew.setOnClickListener(new OnClickListener() {
+        addEntryButton = (FloatingActionButton) view.findViewById(R.id.fab);
 
+        addEntryButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 activityCommunicator.AddNewListEntryClicked(m_namePosition);
-
             }
-
         });
+
+       addEntryButton.attachToListView(getListView());
     }
 
     @Override
@@ -79,8 +82,6 @@ public class EntryListFragment extends ListFragment {
                 // TODO Auto-generated method stub
                 m_Adapter.clearSelection();
 
-                // Hide Add Button
-                bAddNew.animate().translationY(0).start();
             }
 
             @Override
@@ -91,8 +92,6 @@ public class EntryListFragment extends ListFragment {
                 getActivity().getMenuInflater().inflate(R.menu.entry_list_contextual_menu,
                         menu);
 
-                // Hide Add Button
-                bAddNew.animate().translationY(700).start();
                 return true;
             }
 

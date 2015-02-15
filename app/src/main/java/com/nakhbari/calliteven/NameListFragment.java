@@ -14,12 +14,15 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class NameListFragment extends ListFragment {
 
     NameListCommunicator activityCommunicator;
     ImageButton bAddNew;
+    FloatingActionButton addPersonButton;
     private ArrayList<NameListItem> m_nameEntry = new ArrayList<NameListItem>();
     private NameListAdapter m_Adapter;
 
@@ -42,17 +45,17 @@ public class NameListFragment extends ListFragment {
         // TODO Auto-generated method stub
         super.onViewCreated(view, savedInstanceState);
 
-        bAddNew = (ImageButton) view.findViewById(R.id.nameListFloatingButton);
-        bAddNew.setOnClickListener(new OnClickListener() {
+        addPersonButton = (FloatingActionButton) view.findViewById(R.id.personFAB);
 
+        addPersonButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 activityCommunicator.AddNewNameEntryClicked();
-
             }
-
         });
+
+        addPersonButton.attachToListView(getListView());
     }
 
     @Override
@@ -89,7 +92,7 @@ public class NameListFragment extends ListFragment {
                 m_Adapter.clearSelection();
 
                 // Show Add Button
-                bAddNew.animate().translationY(0).start();
+
             }
 
             @Override
@@ -101,7 +104,7 @@ public class NameListFragment extends ListFragment {
                         menu);
 
                 // Hide Add Button
-                bAddNew.animate().translationY(700).start();
+
                 return true;
             }
 
