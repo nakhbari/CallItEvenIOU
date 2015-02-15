@@ -10,15 +10,35 @@
     <string name="euro">&#8364;</string>
     <string name="yen">&#165;</string>
     <string name="pound">&#163;</string>
+    <string name="sharedPref">sharedpref</string>
+    <string name="keyCurrency">KEY_CURRENCY</string>
+    <string name="defaultCurrency">&#36;</string>
+
     <string-array name="who_paid_array">
         <item>You Lent</item>
         <item>You Borrowed</item>
     </string-array>
     <string-array name="currency_array">
-        <item>$</item>
+        <item>&#36;</item>
         <item>&#8364;</item>
         <item>&#165;</item>
         <item>&#163;</item>
         <item>&#8355;</item>
+        <item>&#162;</item>
+        <item>&#8356;</item>
+        <item>&#x20B9;</item>
+        <item>&#8361;</item>
+        <item>&#8372;</item>
+        <item>&#8366;</item>
+        <item>&#8359;</item>
+        <item>&#8368;</item>
+        <item>&#8370;</item>
+        <item>&#8369;</item>
+        <item>&#8371;</item>
+        <item>&#8373;</item>
+        <item>&#8365;</item>
+        <item>&#8362;</item>
+        <item>&#8363;</item>
+        <item>Other</item>
     </string-array>
 </resources>
