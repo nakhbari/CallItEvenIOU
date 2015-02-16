@@ -215,7 +215,7 @@ public class NameListAdapter extends ArrayAdapter<NameListItem> {
                             R.drawable.ic_arrow_forward);
                     holder.circleImage.setBackgroundResource(
                             R.drawable.blue_circle);
-                } 
+                }
             }
 
         }

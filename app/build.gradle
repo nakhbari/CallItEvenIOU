@@ -25,5 +25,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'com.melnykov:floatingactionbutton:1.2.0'
+    compile 'com.github.machinarius:preferencefragment:0.1.1'
 
 }

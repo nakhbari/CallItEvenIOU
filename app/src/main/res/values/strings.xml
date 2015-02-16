@@ -14,6 +14,10 @@
     <string name="keyCurrency">KEY_CURRENCY</string>
     <string name="keyVersion">KEY_VERSION</string>
     <string name="defaultCurrency">&#36;</string>
+    <string name="pref_currency_key">pref_currency_key</string>
+    <string name="pref_currency_title">Currency</string>
+    <string name="pref_currency_summary">The summary</string>
+    <string name="SettingsTag">SETTINGS_FRAG_TAG</string>
 
     <string-array name="who_paid_array">
         <item>You Lent</item>
