@@ -56,6 +56,8 @@ public class NameListFragment extends ListFragment {
         });
 
         addPersonButton.attachToListView(getListView());
+
+
     }
 
     @Override
