@@ -30,7 +30,7 @@ import java.util.Comparator;
 public class MainActivity extends ActionBarActivity implements NameListFragment.NameListCommunicator,
         NameDialogFragment.NameDialogCommunicator,
         EntryListFragment.EntryListCommunicator,
-        EntryListDetailsFragment.EntryListDetailsCommunicator, SettingsMenuFragment.SettingsCommunicator, CurrencyDialogFragment.CurrencyDialogCommunicator {
+        EntryListDetailsFragment.EntryListDetailsCommunicator, SettingsFragment.SettingsCommunicator, CurrencyDialogFragment.CurrencyDialogCommunicator {
 
     private ArrayList<NameListItem> m_nameEntry = new ArrayList<>();
 
@@ -111,14 +111,14 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if (item.getItemId() == R.id.action_settings) {
-            SettingsMenuFragment menuFrag = new SettingsMenuFragment();
 
             FragmentTransaction ft = fm.beginTransaction();
 
             ft.setCustomAnimations(R.anim.abc_fade_in,
                     R.anim.abc_fade_out, R.anim.abc_fade_in,
                     R.anim.abc_fade_out);
-            ft.replace(R.id.mainContainer, menuFrag);
+//            ft.replace(R.id.mainContainer, new SettingsFragment());
+            ft.replace(R.id.mainContainer, new SettingsFragment(), getString(R.string.SettingsTag));
             ft.addToBackStack(null).commit();
             Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
 
@@ -444,6 +444,10 @@ public class MainActivity extends ActionBarActivity implements NameListFragment.
     @Override
     public void SetCurrency(String currency) {
         this.currency = currency;
+
+        SettingsFragment settingsFrag = (SettingsFragment) fm.findFragmentByTag(getString(R.string.SettingsTag));
+        if (settingsFrag != null) settingsFrag.updateCurrency(currency);
+
         Toast.makeText(this, "Currency: " + currency, Toast.LENGTH_SHORT).show();
     }
 

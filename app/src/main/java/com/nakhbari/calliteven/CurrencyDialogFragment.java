@@ -102,8 +102,10 @@ public class CurrencyDialogFragment extends DialogFragment implements
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (currencies[position].equals("Other")) {
             holder.etOtherCurrency.setEnabled(true);
+            holder.etOtherCurrency.setVisibility(View.VISIBLE);
         } else {
             holder.etOtherCurrency.setEnabled(false);
+            holder.etOtherCurrency.setVisibility(View.GONE);
         }
     }
 
